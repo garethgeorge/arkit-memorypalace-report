@@ -81,7 +81,3 @@ To load the worldmap, these steps are performed in rougly reverse order. We star
 - We found that intelligent UI design can go along way towards addressing user frustration when worldtracking struggles. By implementing hints to the user when an area is poorly mapped or more device movement is needed it becomes a lot more intuitive for the user to explore the space and accurately place markers that ARKit can do a good job of tracking.
 
 - AR can help users form strong spatial associations by overlaying
-
-UI design helps compensate when tracking algorithms struggle
-AR can help users form spatial associations between augmented content and the real world
-Future work: importing hints and facts from external sources, geotagging location, among others
