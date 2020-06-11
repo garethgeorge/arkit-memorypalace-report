@@ -1,576 +1,749 @@
 <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>AR MemoryPalace for iOS</title>
-        <style>
-/* From extension zhuangtongfa.material-theme */
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body {
-  box-sizing: border-box;
-  min-width: 200px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote {
-  background-color: initial;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
-  color: initial;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code {
-  color: inherit;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre code {
-  color: initial;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code > div {
-  background: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table th, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table td {
-  border: 1px solid rgba(171, 178, 191, 0.5) !important;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body.showEditorSelection .code-active-line:before {
-  border-left: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body.showEditorSelection .code-line:hover:before {
-  border-left: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body.showEditorSelection .code-line .code-line:hover:before {
-  border-left: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body p, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>AR MemoryPalace for iOS</title>
+    <style>
+      /* From extension zhuangtongfa.material-theme */
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body {
+        box-sizing: border-box;
+        min-width: 200px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        blockquote {
+        background-color: initial;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+        color: initial;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code {
+        color: inherit;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre code {
+        color: initial;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        code
+        > div {
+        background: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table th,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table td {
+        border: 1px solid rgba(171, 178, 191, 0.5) !important;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body.showEditorSelection
+        .code-active-line:before {
+        border-left: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body.showEditorSelection
+        .code-line:hover:before {
+        border-left: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body p,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        blockquote,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+        margin-top: 16px;
+        margin-bottom: 16px;
+      }
 
-/* Generated from 'node_modules/github-markdown-css/github-markdown.css' */
-@font-face {
-  font-family: octicons-link;
-  src: url(data:font/woff;charset=utf-8;base64,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) format("woff");
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body {
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  line-height: 1.5;
-  color: #abb2bf;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 16px;
-  line-height: 1.5;
-  word-wrap: break-word;
-  background: #282c34;
-  padding-top: 20px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c {
-  color: #6a737d;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c1, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-s .pl-v {
-  color: #005cc5;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-e, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-en {
-  color: #6f42c1;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-smi, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-s .pl-s1 {
-  color: #24292e;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ent {
-  color: #22863a;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-k {
-  color: #d73a49;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-s, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-pds, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-s .pl-pse .pl-s1, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr .pl-cce, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr .pl-sre, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr .pl-sra {
-  color: #032f62;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-v, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-smw {
-  color: #e36209;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-bu {
-  color: #b31d28;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ii {
-  color: #fafbfc;
-  background-color: #b31d28;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c2 {
-  color: #fafbfc;
-  background-color: #d73a49;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c2::before {
-  content: "^M";
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr .pl-cce {
-  font-weight: bold;
-  color: #22863a;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ml {
-  color: #735c0f;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mh, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mh .pl-en, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ms {
-  font-weight: bold;
-  color: #005cc5;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mi {
-  font-style: italic;
-  color: #24292e;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mb {
-  font-weight: bold;
-  color: #24292e;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-md {
-  color: #b31d28;
-  background-color: #ffeef0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mi1 {
-  color: #22863a;
-  background-color: #f0fff4;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mc {
-  color: #e36209;
-  background-color: #ffebda;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mi2 {
-  color: #f6f8fa;
-  background-color: #005cc5;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mdr {
-  font-weight: bold;
-  color: #6f42c1;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ba {
-  color: #586069;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sg {
-  color: #959da5;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-corl {
-  text-decoration: underline;
-  color: #032f62;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .octicon {
-  display: inline-block;
-  vertical-align: text-top;
-  fill: currentColor;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a {
-  background-color: transparent;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:active, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:hover {
-  outline-width: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body strong {
-  font-weight: inherit;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body strong {
-  font-weight: bolder;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body img {
-  border-style: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body kbd, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
-  box-sizing: content-box;
-  height: 0;
-  overflow: visible;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body input {
-  font: inherit;
-  margin: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body input {
-  overflow: visible;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body [type=checkbox] {
-  box-sizing: border-box;
-  padding: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body * {
-  box-sizing: border-box;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body input {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a {
-  color: #528bff;
-  text-decoration: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:hover {
-  text-decoration: underline;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body strong {
-  font-weight: 600;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
-  height: 0;
-  margin: 15px 0;
-  overflow: hidden;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid #dfe2e5;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr::before {
-  display: table;
-  content: "";
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr::after {
-  display: table;
-  clear: both;
-  content: "";
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table {
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body td, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body th {
-  padding: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 {
-  font-size: 32px;
-  font-weight: 600;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2 {
-  font-size: 24px;
-  font-weight: 600;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3 {
-  font-size: 20px;
-  font-weight: 600;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4 {
-  font-size: 16px;
-  font-weight: 600;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5 {
-  font-size: 14px;
-  font-weight: 600;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
-  font-size: 12px;
-  font-weight: 600;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body p {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote {
-  margin: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol {
-  padding-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ol {
-  list-style-type: lower-roman;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ul ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ol ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ul ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ol ol {
-  list-style-type: lower-alpha;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dd {
-  margin-left: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  font-size: 12px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  font-size: 12px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .octicon {
-  vertical-align: text-bottom;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-0 {
-  padding-left: 0 !important;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-1 {
-  padding-left: 4px !important;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-2 {
-  padding-left: 8px !important;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-3 {
-  padding-left: 16px !important;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-4 {
-  padding-left: 24px !important;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-5 {
-  padding-left: 32px !important;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-6 {
-  padding-left: 40px !important;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body::before {
-  display: table;
-  content: "";
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body::after {
-  display: table;
-  clear: both;
-  content: "";
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body > *:first-child {
-  margin-top: 0 !important;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body > *:last-child {
-  margin-bottom: 0 !important;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:not([href]) {
-  color: inherit;
-  text-decoration: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .anchor {
-  float: left;
-  padding-right: 4px;
-  margin-left: -20px;
-  line-height: 1;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .anchor:focus {
-  outline: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body p, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
-  height: 0.25em;
-  padding: 0;
-  margin: 24px 0;
-  background-color: #e1e4e8;
-  border: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote {
-  /* padding: 0 1em;
+      /* Generated from 'node_modules/github-markdown-css/github-markdown.css' */
+      @font-face {
+        font-family: octicons-link;
+        src: url(data:font/woff;charset=utf-8;base64,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)
+          format("woff");
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body {
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        line-height: 1.5;
+        color: #abb2bf;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        font-size: 16px;
+        line-height: 1.5;
+        word-wrap: break-word;
+        background: #282c34;
+        padding-top: 20px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c {
+        color: #6a737d;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c1,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .pl-s
+        .pl-v {
+        color: #005cc5;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-e,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-en {
+        color: #6f42c1;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-smi,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .pl-s
+        .pl-s1 {
+        color: #24292e;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ent {
+        color: #22863a;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-k {
+        color: #d73a49;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-s,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-pds,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .pl-s
+        .pl-pse
+        .pl-s1,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sr,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .pl-sr
+        .pl-cce,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .pl-sr
+        .pl-sre,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .pl-sr
+        .pl-sra {
+        color: #032f62;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-v,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-smw {
+        color: #e36209;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-bu {
+        color: #b31d28;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ii {
+        color: #fafbfc;
+        background-color: #b31d28;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-c2 {
+        color: #fafbfc;
+        background-color: #d73a49;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .pl-c2::before {
+        content: "^M";
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .pl-sr
+        .pl-cce {
+        font-weight: bold;
+        color: #22863a;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ml {
+        color: #735c0f;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mh,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .pl-mh
+        .pl-en,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ms {
+        font-weight: bold;
+        color: #005cc5;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mi {
+        font-style: italic;
+        color: #24292e;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mb {
+        font-weight: bold;
+        color: #24292e;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-md {
+        color: #b31d28;
+        background-color: #ffeef0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mi1 {
+        color: #22863a;
+        background-color: #f0fff4;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mc {
+        color: #e36209;
+        background-color: #ffebda;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mi2 {
+        color: #f6f8fa;
+        background-color: #005cc5;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-mdr {
+        font-weight: bold;
+        color: #6f42c1;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-ba {
+        color: #586069;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-sg {
+        color: #959da5;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-corl {
+        text-decoration: underline;
+        color: #032f62;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .octicon {
+        display: inline-block;
+        vertical-align: text-top;
+        fill: currentColor;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a {
+        background-color: transparent;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:active,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:hover {
+        outline-width: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body strong {
+        font-weight: inherit;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body strong {
+        font-weight: bolder;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body img {
+        border-style: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body kbd,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+        font-family: monospace, monospace;
+        font-size: 1em;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
+        box-sizing: content-box;
+        height: 0;
+        overflow: visible;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body input {
+        font: inherit;
+        margin: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body input {
+        overflow: visible;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        [type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body * {
+        box-sizing: border-box;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body input {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a {
+        color: #528bff;
+        text-decoration: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body a:hover {
+        text-decoration: underline;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body strong {
+        font-weight: 600;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
+        height: 0;
+        margin: 15px 0;
+        overflow: hidden;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid #dfe2e5;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        hr::before {
+        display: table;
+        content: "";
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        hr::after {
+        display: table;
+        clear: both;
+        content: "";
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table {
+        border-spacing: 0;
+        border-collapse: collapse;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body td,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body th {
+        padding: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 {
+        font-size: 32px;
+        font-weight: 600;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2 {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3 {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5 {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body p {
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        blockquote {
+        margin: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol {
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ol,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ol {
+        list-style-type: lower-roman;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ul ol,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ol ol,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ul ol,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ol ol {
+        list-style-type: lower-alpha;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dd {
+        margin-left: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+        font-size: 12px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+        font-size: 12px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .octicon {
+        vertical-align: text-bottom;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-0 {
+        padding-left: 0 !important;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-1 {
+        padding-left: 4px !important;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-2 {
+        padding-left: 8px !important;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-3 {
+        padding-left: 16px !important;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-4 {
+        padding-left: 24px !important;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-5 {
+        padding-left: 32px !important;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .pl-6 {
+        padding-left: 40px !important;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body::before {
+        display: table;
+        content: "";
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body::after {
+        display: table;
+        clear: both;
+        content: "";
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        > *:first-child {
+        margin-top: 0 !important;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        > *:last-child {
+        margin-bottom: 0 !important;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        a:not([href]) {
+        color: inherit;
+        text-decoration: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .anchor {
+        float: left;
+        padding-right: 4px;
+        margin-left: -20px;
+        line-height: 1;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .anchor:focus {
+        outline: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body p,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        blockquote,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+        margin-top: 0;
+        margin-bottom: 16px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
+        height: 0.25em;
+        padding: 0;
+        margin: 24px 0;
+        background-color: #e1e4e8;
+        border: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        blockquote {
+        /* padding: 0 1em;
   color: #6a737d;
   border-left: 0.25em solid #dfe2e5; */
-  padding: 8.5px 17px;
-  margin: 1.5em 0;
-  font-size: inherit;
-  color: #7c879c;
-  border-color: #4b5362;
-  border-width: 4px;
-  border-left: 5px solid #4b5362;
-  background: transparent;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote > :first-child {
-  margin-top: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body blockquote > :last-child {
-  margin-bottom: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body kbd {
-  display: inline-block;
-  padding: 3px 5px;
-  font-size: 11px;
-  line-height: 10px;
-  color: #444d56;
-  vertical-align: middle;
-  background-color: #fafbfc;
-  border: solid 1px #c6cbd1;
-  border-bottom-color: #959da5;
-  border-radius: 3px;
-  box-shadow: inset 0 -1px 0 #959da5;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-  color: #f0f0f0;
-  border-bottom: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2 .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3 .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4 .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5 .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 .octicon-link {
-  color: #1b1f23;
-  vertical-align: middle;
-  visibility: hidden;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1:hover .anchor, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2:hover .anchor, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3:hover .anchor, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4:hover .anchor, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5:hover .anchor, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6:hover .anchor {
-  text-decoration: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1:hover .anchor .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2:hover .anchor .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3:hover .anchor .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4:hover .anchor .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5:hover .anchor .octicon-link, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6:hover .anchor .octicon-link {
-  visibility: visible;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 {
-  padding-bottom: 0.3em;
-  font-size: 2em;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2 {
-  padding-bottom: 0.3em;
-  font-size: 1.5em;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3 {
-  font-size: 1.25em;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4 {
-  font-size: 1em;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5 {
-  font-size: 0.875em;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
-  font-size: 0.85em;
-  color: #6a737d;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol {
-  padding-left: 2em;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ul, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ol, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ul {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body li {
-  word-wrap: break-all;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body li > p {
-  margin-top: 16px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body li + li {
-  margin-top: 0.25em;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl {
-  padding: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl dt {
-  padding: 0;
-  margin-top: 16px;
-  font-size: 1em;
-  font-style: italic;
-  font-weight: 600;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl dd {
-  padding: 0 16px;
-  margin-bottom: 16px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table {
-  display: block;
-  width: 100%;
-  overflow: auto;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table th {
-  font-weight: 700;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table th, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table td {
-  padding: 6px 13px;
-  /* border: 1px solid #dfe2e5; */
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table tr {
-  /* background-color: #fff; */
-  /* border-top: 1px solid #c6cbd1; */
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table tr:nth-child(2n) {
-  /* background-color: #f6f8fa; */
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body img {
-  max-width: 100%;
-  box-sizing: content-box;
-  display: block;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body img[align=right] {
-  padding-left: 20px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body img[align=left] {
-  padding-right: 20px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code {
-  padding: 0.2em 0.4em;
-  margin: 0;
-  font-size: 85%;
-  background-color: #3a3f4b;
-  border-radius: 3px;
-  color: white;
-  margin: 0 1px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
-  word-wrap: normal;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre > code {
-  padding: 0;
-  margin: 0;
-  font-size: 100%;
-  word-break: normal;
-  white-space: pre;
-  background: transparent;
-  border: 0;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .highlight {
-  margin-bottom: 16px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .highlight pre {
-  margin-bottom: 0;
-  word-break: normal;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .highlight pre, .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  /* background-color: #f6f8fa; */
-  border-radius: 3px;
-  background-color: #31363f;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre code {
-  display: inline;
-  max-width: auto;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: transparent;
-  border: 0;
-  color: #abb2bf;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .full-commit .btn-outline:not(:disabled):hover {
-  color: #005cc5;
-  border-color: #005cc5;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body kbd {
-  display: inline-block;
-  padding: 3px 5px;
-  font: 11px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  line-height: 10px;
-  color: #444d56;
-  vertical-align: middle;
-  background-color: #fafbfc;
-  border: solid 1px #d1d5da;
-  border-bottom-color: #c6cbd1;
-  border-radius: 3px;
-  box-shadow: inset 0 -1px 0 #c6cbd1;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body :checked + .radio-label {
-  position: relative;
-  z-index: 1;
-  border-color: #0366d6;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .task-list-item {
-  list-style-type: none;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .task-list-item + .task-list-item {
-  margin-top: 3px;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body .task-list-item input {
-  margin: 0 0.2em 0.25em -1.6em;
-  vertical-align: middle;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
-  border-bottom-color: #eee;
-}
+        padding: 8.5px 17px;
+        margin: 1.5em 0;
+        font-size: inherit;
+        color: #7c879c;
+        border-color: #4b5362;
+        border-width: 4px;
+        border-left: 5px solid #4b5362;
+        background: transparent;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        blockquote
+        > :first-child {
+        margin-top: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        blockquote
+        > :last-child {
+        margin-bottom: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body kbd {
+        display: inline-block;
+        padding: 3px 5px;
+        font-size: 11px;
+        line-height: 10px;
+        color: #444d56;
+        vertical-align: middle;
+        background-color: #fafbfc;
+        border: solid 1px #c6cbd1;
+        border-bottom-color: #959da5;
+        border-radius: 3px;
+        box-shadow: inset 0 -1px 0 #959da5;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
+        margin-top: 24px;
+        margin-bottom: 16px;
+        font-weight: 600;
+        line-height: 1.25;
+        color: #f0f0f0;
+        border-bottom: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h1
+        .octicon-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h2
+        .octicon-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h3
+        .octicon-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h4
+        .octicon-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h5
+        .octicon-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h6
+        .octicon-link {
+        color: #1b1f23;
+        vertical-align: middle;
+        visibility: hidden;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h1:hover
+        .anchor,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h2:hover
+        .anchor,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h3:hover
+        .anchor,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h4:hover
+        .anchor,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h5:hover
+        .anchor,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h6:hover
+        .anchor {
+        text-decoration: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h1:hover
+        .anchor
+        .octicon-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h2:hover
+        .anchor
+        .octicon-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h3:hover
+        .anchor
+        .octicon-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h4:hover
+        .anchor
+        .octicon-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h5:hover
+        .anchor
+        .octicon-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        h6:hover
+        .anchor
+        .octicon-link {
+        visibility: visible;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h1 {
+        padding-bottom: 0.3em;
+        font-size: 2em;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h2 {
+        padding-bottom: 0.3em;
+        font-size: 1.5em;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h3 {
+        font-size: 1.25em;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h4 {
+        font-size: 1em;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h5 {
+        font-size: 0.875em;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body h6 {
+        font-size: 0.85em;
+        color: #6a737d;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol {
+        padding-left: 2em;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ul,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ul ol,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ol,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body ol ul {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body li {
+        word-wrap: break-all;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body li > p {
+        margin-top: 16px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body li + li {
+        margin-top: 0.25em;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl {
+        padding: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl dt {
+        padding: 0;
+        margin-top: 16px;
+        font-size: 1em;
+        font-style: italic;
+        font-weight: 600;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body dl dd {
+        padding: 0 16px;
+        margin-bottom: 16px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table {
+        display: block;
+        width: 100%;
+        overflow: auto;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table th {
+        font-weight: 700;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table th,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table td {
+        padding: 6px 13px;
+        /* border: 1px solid #dfe2e5; */
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body table tr {
+        /* background-color: #fff; */
+        /* border-top: 1px solid #c6cbd1; */
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        table
+        tr:nth-child(2n) {
+        /* background-color: #f6f8fa; */
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body img {
+        max-width: 100%;
+        box-sizing: content-box;
+        display: block;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        img[align="right"] {
+        padding-left: 20px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        img[align="left"] {
+        padding-right: 20px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body code {
+        padding: 0.2em 0.4em;
+        margin: 0;
+        font-size: 85%;
+        background-color: #3a3f4b;
+        border-radius: 3px;
+        color: white;
+        margin: 0 1px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+        word-wrap: normal;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        pre
+        > code {
+        padding: 0;
+        margin: 0;
+        font-size: 100%;
+        word-break: normal;
+        white-space: pre;
+        background: transparent;
+        border: 0;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .highlight {
+        margin-bottom: 16px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .highlight
+        pre {
+        margin-bottom: 0;
+        word-break: normal;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .highlight
+        pre,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre {
+        padding: 16px;
+        overflow: auto;
+        font-size: 85%;
+        line-height: 1.45;
+        /* background-color: #f6f8fa; */
+        border-radius: 3px;
+        background-color: #31363f;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body pre code {
+        display: inline;
+        max-width: auto;
+        padding: 0;
+        margin: 0;
+        overflow: visible;
+        line-height: inherit;
+        word-wrap: normal;
+        background-color: transparent;
+        border: 0;
+        color: #abb2bf;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .full-commit
+        .btn-outline:not(:disabled):hover {
+        color: #005cc5;
+        border-color: #005cc5;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body kbd {
+        display: inline-block;
+        padding: 3px 5px;
+        font: 11px "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
+          monospace;
+        line-height: 10px;
+        color: #444d56;
+        vertical-align: middle;
+        background-color: #fafbfc;
+        border: solid 1px #d1d5da;
+        border-bottom-color: #c6cbd1;
+        border-radius: 3px;
+        box-shadow: inset 0 -1px 0 #c6cbd1;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        :checked
+        + .radio-label {
+        position: relative;
+        z-index: 1;
+        border-color: #0366d6;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .task-list-item {
+        list-style-type: none;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .task-list-item
+        + .task-list-item {
+        margin-top: 3px;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body
+        .task-list-item
+        input {
+        margin: 0 0.2em 0.25em -1.6em;
+        vertical-align: middle;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"].vscode-body hr {
+        border-bottom-color: #eee;
+      }
 
-/*
+      /*
 
 Atom One Dark by Daniel Gamage
 Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
@@ -589,184 +762,399 @@ hue-6:   #d19a66
 hue-6-2: #e6c07b
 
 */
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  color: #abb2bf;
-  background: #282c34;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-comment,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-quote {
-  color: #5c6370;
-  font-style: italic;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-doctag,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-keyword,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-formula {
-  color: #c678dd;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-section,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-name,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-tag,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-deletion,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-subst {
-  color: #e06c75;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-literal {
-  color: #56b6c2;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-string,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-regexp,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-addition,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-attribute,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-meta-string {
-  color: #98c379;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-built_in,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-class .hljs-title {
-  color: #e6c07b;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-attr,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-variable,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-template-variable,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-type,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-class,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-attr,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-pseudo,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-number {
-  color: #d19a66;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-symbol,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-bullet,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-link,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-meta,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-id,
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-title {
-  color: #61aeee;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-emphasis {
-  font-style: italic;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-strong {
-  font-weight: bold;
-}
-.vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-link {
-  text-decoration: underline;
-}
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs {
+        display: block;
+        overflow-x: auto;
+        padding: 0.5em;
+        color: #abb2bf;
+        background: #282c34;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-comment,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-quote {
+        color: #5c6370;
+        font-style: italic;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-doctag,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-keyword,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-formula {
+        color: #c678dd;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-section,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-name,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-tag,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-deletion,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-subst {
+        color: #e06c75;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-literal {
+        color: #56b6c2;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-string,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-regexp,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-addition,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-attribute,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-meta-string {
+        color: #98c379;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-built_in,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"]
+        .hljs-class
+        .hljs-title {
+        color: #e6c07b;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-attr,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-variable,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"]
+        .hljs-template-variable,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-type,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-class,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-attr,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-pseudo,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-number {
+        color: #d19a66;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-symbol,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-bullet,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-link,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-meta,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-selector-id,
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-title {
+        color: #61aeee;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-emphasis {
+        font-style: italic;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-strong {
+        font-weight: bold;
+      }
+      .vscode-dark[data-vscode-theme-name="One Dark Pro"] .hljs-link {
+        text-decoration: underline;
+      }
+    </style>
 
-</style>
-        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-        
-        <style>
-.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
-</style>
-        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
-                font-size: 14px;
-                line-height: 1.6;
-            }
-        </style>
-        
-        
-        
-    </head>
-    <body class="vscode-light">
-        <h1 id="ar-memorypalace-for-ios">AR MemoryPalace for iOS</h1>
-<p>Created by Gareth George and Dana Nguyen</p>
-<p>In this project we provide our take on an augmented reality memory palace learning tool built using the great ARKit and SceneKit libraries provided on iOS.
-Our project is runnable on any iOS device with support for these libraries (iPhone X and up).</p>
-<h2 id="background">Background</h2>
-<p>Memory palaces (sometimes referred to as the method of loci) have an ancient history going back to the time of Roman and Greek orators.</p>
-<p>Memory palaces are a memorization strategy which enhances the recall of information by associating it with objects in a familar spatial environment. Once these associations have been trained, recallation of the information is enhanced as the user can visually imagine a journey from the environment and recall the locations where they mentally placed the information.</p>
-<p>Additionally, studies such as 'Virtual Memory Palaces: Immersion Aids Recall' (by Krokos et. al) have established when virtual (VR) memory palaces are used in training they can even enhance the quality of recollection -- by their results training with head mounted displays improved recollection by ~9%.</p>
-<p>We attempt to extend these principles into augmented reality using an AR app on mobile devices to help users attach material to memorize to physical objects, study these mappings, and test themselves on the content.</p>
-<h2 id="running-the-project">Running the project</h2>
-<p><strong>The project has only been tested on iPhone iOS version 13.4+</strong></p>
-<ol>
-<li>Open 'MemoryPalace.xcworkspace' in Xcode</li>
-<li>Build the project by clicking the 'play' button.
-<ul>
-<li>If build does not work, try to go into build settings &gt; signing and capabilities, and change the team and build identifier</li>
-</ul>
-</li>
-</ol>
-<h2 id="project-demo-video">Project Demo Video</h2>
-<p><a href="./armemorypalace.mp4">Demo Video Here</a></p>
-<h2 id="engineering-challenges">Engineering Challenges</h2>
-<h3 id="user-experience--user-interface-implementation-and-designs">User Experience &amp; User Interface Implementation and Designs</h3>
-<p>ARKit provides several different views that we leverage in our app. We provide two editable viewing modes from which markers are created and edited:</p>
-<ul>
-<li>
-<p><strong>marker list view:</strong> contains some of the marker metadata (the hint and the fact). Additionally, this view allows users to easily edit and delete all the markers that they have created.</p>
-</li>
-<li>
-<p><strong>spatial marker view:</strong> makes it easy to visualize the memory palace in the surrounding home/place. Here, users are able to add markers onto furniture/objects. This is done by detecting screen presses and casting a ray into the scene. This ray is checked for intersections with estimated surfaces in the pointcloud of features that have been detected in the scene.</p>
-</li>
-</ul>
-<p>In the spatial marker view, when an object is tapped, users are prompted with the marker creation/editing view. Users can define hints and facts, and have the option to choose different colors for their repsective markers. Users can also use emojis as hints or embed these emojis within their facts. We found the use of emojis more helpful by just properly supporting Unicode, instead of bloating our app with AR models, especially since there are tons of emojis that already exist. Additionally, instead of having to use the marker list view, users also have the ability to tap an existing marker and update or delete the marker from the spatial marker view.</p>
-<br/>
-<img src="file:////Users/gareth/Documents/workspaces-classes/CS291A Augmented Reality/memorypalace-report/image/marker_edit.png" width="200" />
-<img src="file:////Users/gareth/Documents/workspaces-classes/CS291A Augmented Reality/memorypalace-report/image/marker-list.png" width="200" />
-<p>Furthermore, we wanted to provide a progression of difficulty levels so that users can ease into the process of learning / memorizing concepts. We use the UISegmentedControl, provided by SceneKit to create three different study view modes:</p>
-<ul>
-<li><strong>Study/Edit mode:</strong> provides all available info (location of the markers, thesequence number, hints, and facts/answers)</li>
-<li><strong>Quiz view mode:</strong> this is intended as an intermediate step in the learning process, providing the locations of the markers, hints, and the sequence numbers</li>
-<li><strong>Test view mode:</strong> intended for full recall testing. The user is only shown only the locations of the markers and the sequence order. This acts more like the memory palace we know today.</li>
-</ul>
-<br/>
-<img src="file:////Users/gareth/Documents/workspaces-classes/CS291A Augmented Reality/memorypalace-report/image/quiz_view.png" width="200" />
-<img src="file:////Users/gareth/Documents/workspaces-classes/CS291A Augmented Reality/memorypalace-report/image/test_view.png" width="200" />
-<h3 id="world-tracking-challenges--solutions">World Tracking Challenges &amp; Solutions</h3>
-<img align="right" style="margin: 10px" src="file:////Users/gareth/Documents/workspaces-classes/CS291A Augmented Reality/memorypalace-report/image/limit-track.png" width="200" />
-<p>ARKit provides us with out of the box high quality world tracking. Part of this involves the placement of ARAnchor nodes near positions of interest in the augmented reality (AR) scene. When the user's device is near an ARAnchor ARKit prioritizes the accuratcy of world tracking near that anchor, possibly at the expense of shifting objects elsewhere in the scene. This can create a problem, however, when anchors are placed down while the world is poorly mapped. As ARKit's understanding of the world changes, it will update the positions of these anchors and this can create distortion as ARKit tries to resolve the constraints of anchors near one another.</p>
-<p>To mitigate this effect, it is important to communicate the state of the app's world mapping to the user as well as instructions on how they can properly help the app recover / better understand the space. To this end we implement two UI features</p>
-<ul>
-<li>we block marker placement when the app has not fully mapped the space where the marker would be placed</li>
-<li>we provide a text prompt which instructs the user to pan the device around the room to help with mapping when it is insufficient * this feature is also used for relocalization (see saving &amp; loading section) where, in addition to a prompt, we augment the display with an image of the last tracked position so that the user can return their viewport to the same position and resume their session.</li>
-</ul>
-<p>Together, these features greatly reduce the number of situations in which user error can potentially corrupt the world map by creating unsatisfiable constraints between anchors and harming user experience.</p>
-<h3 id="saving--loading-worldmap-data">Saving &amp; Loading Worldmap Data</h3>
-<img align="left" style="margin: 10px" src="file:////Users/gareth/Documents/workspaces-classes/CS291A Augmented Reality/memorypalace-report/image/load_view2.png" width="200" />
-<p>With the case of AR Memory Palaces we strongly felt that it was necessary to support a save and restore feature so that users could build up a repository of knowledge, save it, and come back to it later. This allows them to either continue adding new information or to spend more time studying / learning the arrangement of facts.</p>
-<p>To implement saving we had to find a way to associate ARAnchors, which are serialized as part of the world map, with our model's representation of the markers. We used the 'name' property to associate a UUID, which is saved with the anchors, which associates that anchor with its corresponding marker. We can then use ARKit's world serialization API to serialize the worldmap and anchor data and save it to a file. We separately serialize and save the marker metadata as JSON and write out a apture of the camera's view. This is done as a visual reference to help the user return the same location and device orientation.</p>
-<p>To load the worldmap, these steps are performed in rougly reverse order. We start by deserializing and loading the marker metadata into the model which holds our list of markers and other global state for the application. We then load the serialized world map which puts the device into &quot;relocalization mode.&quot; In this mode, the device attempts to relate the features it extracts from the scene to the features it loads from the model until it is confident it has been restored to the same location. At this point both the information from the file and the new world tracking data are merged and the device places the anchors from the worldmap file into the scene. This invokes SceneKit API's to render the SCNNode representations of these anchors, the data for this is already available thanks to the model being loaded so we simply construct the marker icon as well as well as an associated label and move these into position restoring the experience.</p>
-<h3 id="future-work">Future Work</h3>
-<ul>
-<li>
-<p>World Tracking: we would be interested to explore how the app performs on more modern Apple devices that we did not have access to such as an the iPad Pro with Apple's new lidarr scanner.</p>
-</li>
-<li>
-<p>Save &amp; Restore: in our testing we have found save and restore to be a remarkably useful and robust. Save and restore is in most cases able to almost immediately resume tracking when returned to the device's original location and in some cases it can even restore from other locations in the mapped space. Loading and restoring memory markers can be used to map out multiple rooms in a much larger structure allowing for the creation of truly expansive memory palaces. In future work we might be able to incorporate features such as GPS tracking to automatically restore markers when a user returns to a given area, or support for image markers to automatically restore tags in a room when a user returns to it.</p>
-</li>
-<li>
-<p>Importing hints &amp; facts list in advance: Users may want to import pre-created lists from external sources such as from Google Sheets or Quizlet, thus this feature may be useful in future iterations</p>
-</li>
-<li>
-<p>Multiple languages: Supporting multiple languages and broadening our app to the world, instead of just English-speaking countries</p>
-</li>
-</ul>
-<h3 id="takeaways">Takeaways</h3>
-<ul>
-<li>
-<p>We found working with ARKit using SceneKit's abstractions were perfect for our project. SceneKit does little to hide the low level internals of ARKit which makes implementing features like serializing world data to save it, and sychronizing UI elements with anchors in the scene relatively easy. SceneKit also provides a great set of rendering abstractions through the SCNNode hierarchy.</p>
-</li>
-<li>
-<p>We found that intelligent UI design can go along way towards addressing user frustration when worldtracking struggles. By implementing hints to the user when an area is poorly mapped or more device movement is needed it becomes a lot more intuitive for the user to explore the space and accurately place markers that ARKit can do a good job of tracking.</p>
-</li>
-<li>
-<p>AR can help users form strong spatial associations by overlaying</p>
-</li>
-</ul>
-<h1 id="sources">Sources</h1>
-<ul>
-<li><a href="https://developer.apple.com/documentation/arkit/creating_screen_annotations_for_objects_in_an_ar_experience">https://developer.apple.com/documentation/arkit/creating_screen_annotations_for_objects_in_an_ar_experience</a></li>
-<li><a href="https://developer.apple.com/documentation/arkit/world_tracking/saving_and_loading_world_data">https://developer.apple.com/documentation/arkit/world_tracking/saving_and_loading_world_data</a></li>
-<li><a href="https://www.researchgate.net/publication/309223649_NeverMind_Using_Augmented_Reality_for_Memorization">https://www.researchgate.net/publication/309223649_NeverMind_Using_Augmented_Reality_for_Memorization</a></li>
-</ul>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css"
+    />
 
-    </body>
-    </html>
+    <style>
+      .task-list-item {
+        list-style-type: none;
+      }
+      .task-list-item-checkbox {
+        margin-left: -20px;
+        vertical-align: middle;
+      }
+    </style>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          system-ui, "Ubuntu", "Droid Sans", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body class="vscode-light">
+    <h1 id="ar-memorypalace-for-ios">AR MemoryPalace for iOS</h1>
+    <p><b>Created by Gareth George and Dana Nguyen</b></p>
+    <p>
+      In this project we provide our take on an augmented reality memory palace
+      learning tool built using the great ARKit and SceneKit libraries provided
+      on iOS. Our project is runnable on any iOS device with support for these
+      libraries (iPhone X and up).
+    </p>
+    <h2 id="background">Background</h2>
+    <p>
+      Memory palaces (sometimes referred to as the method of loci) have an
+      ancient history going back to the time of Roman and Greek orators.
+    </p>
+    <p>
+      Memory palaces are a memorization strategy which enhances the recall of
+      information by associating it with objects in a familar spatial
+      environment. Once these associations have been trained, recallation of the
+      information is enhanced as the user can visually imagine a journey from
+      the environment and recall the locations where they mentally placed the
+      information.
+    </p>
+    <p>
+      Additionally, studies such as 'Virtual Memory Palaces: Immersion Aids
+      Recall' (by Krokos et. al) have established when virtual (VR) memory
+      palaces are used in training they can even enhance the quality of
+      recollection -- by their results training with head mounted displays
+      improved recollection by ~9%.
+    </p>
+    <p>
+      We attempt to extend these principles into augmented reality using an AR
+      app on mobile devices to help users attach material to memorize to
+      physical objects, study these mappings, and test themselves on the
+      content.
+    </p>
+    <h2 id="running-the-project">Running the project</h2>
+    <p>
+      <strong
+        >The project has only been tested on iPhone iOS version 13.4+</strong
+      >
+    </p>
+    <ol>
+      <li>Open 'MemoryPalace.xcworkspace' in Xcode</li>
+      <li>
+        Build the project by clicking the 'play' button.
+        <ul>
+          <li>
+            If build does not work, try to go into build settings &gt; signing
+            and capabilities, and change the team and build identifier
+          </li>
+        </ul>
+      </li>
+    </ol>
+    <h2 id="project-demo-video">Project Demo Video</h2>
+    <p><a href="./armemorypalace.mp4">Demo Video Here</a></p>
+    <h2 id="engineering-challenges">Engineering Challenges</h2>
+    <h3 id="user-experience--user-interface-implementation-and-designs">
+      User Experience &amp; User Interface Implementation and Designs
+    </h3>
+    <p>
+      ARKit provides several different views that we leverage in our app. We
+      provide two editable viewing modes from which markers are created and
+      edited:
+    </p>
+    <ul>
+      <li>
+        <p>
+          <strong>marker list view:</strong> contains some of the marker
+          metadata (the hint and the fact). Additionally, this view allows users
+          to easily edit and delete all the markers that they have created.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>spatial marker view:</strong> makes it easy to visualize the
+          memory palace in the surrounding home/place. Here, users are able to
+          add markers onto furniture/objects. This is done by detecting screen
+          presses and casting a ray into the scene. This ray is checked for
+          intersections with estimated surfaces in the pointcloud of features
+          that have been detected in the scene.
+        </p>
+      </li>
+    </ul>
+    <p>
+      In the spatial marker view, when an object is tapped, users are prompted
+      with the marker creation/editing view. Users can define hints and facts,
+      and have the option to choose different colors for their repsective
+      markers. Users can also use emojis as hints or embed these emojis within
+      their facts. We found the use of emojis more helpful by just properly
+      supporting Unicode, instead of bloating our app with AR models, especially
+      since there are tons of emojis that already exist. Additionally, instead
+      of having to use the marker list view, users also have the ability to tap
+      an existing marker and update or delete the marker from the spatial marker
+      view.
+    </p>
+    <br />
+    <img src="./image/marker_edit.png" width="200" />
+    <img src="./image/marker-list.png" width="200" />
+    <p>
+      Furthermore, we wanted to provide a progression of difficulty levels so
+      that users can ease into the process of learning / memorizing concepts. We
+      use the UISegmentedControl, provided by SceneKit to create three different
+      study view modes:
+    </p>
+    <ul>
+      <li>
+        <strong>Study/Edit mode:</strong> provides all available info (location
+        of the markers, thesequence number, hints, and facts/answers)
+      </li>
+      <li>
+        <strong>Quiz view mode:</strong> this is intended as an intermediate
+        step in the learning process, providing the locations of the markers,
+        hints, and the sequence numbers
+      </li>
+      <li>
+        <strong>Test view mode:</strong> intended for full recall testing. The
+        user is only shown only the locations of the markers and the sequence
+        order. This acts more like the memory palace we know today.
+      </li>
+    </ul>
+    <br />
+    <img src="./image/quiz_view.png" width="200" />
+    <img src="./image/test_view.png" width="200" />
+    <h3 id="world-tracking-challenges--solutions">
+      World Tracking Challenges &amp; Solutions
+    </h3>
+    <img
+      align="right"
+      style="margin: 10px;"
+      src="./image/limit-track.png"
+      width="200"
+    />
+    <p>
+      ARKit provides us with out of the box high quality world tracking. Part of
+      this involves the placement of ARAnchor nodes near positions of interest
+      in the augmented reality (AR) scene. When the user's device is near an
+      ARAnchor ARKit prioritizes the accuratcy of world tracking near that
+      anchor, possibly at the expense of shifting objects elsewhere in the
+      scene. This can create a problem, however, when anchors are placed down
+      while the world is poorly mapped. As ARKit's understanding of the world
+      changes, it will update the positions of these anchors and this can create
+      distortion as ARKit tries to resolve the constraints of anchors near one
+      another.
+    </p>
+    <p>
+      To mitigate this effect, it is important to communicate the state of the
+      app's world mapping to the user as well as instructions on how they can
+      properly help the app recover / better understand the space. To this end
+      we implement two UI features
+    </p>
+    <ul>
+      <li>
+        we block marker placement when the app has not fully mapped the space
+        where the marker would be placed
+      </li>
+      <li>
+        we provide a text prompt which instructs the user to pan the device
+        around the room to help with mapping when it is insufficient * this
+        feature is also used for relocalization (see saving &amp; loading
+        section) where, in addition to a prompt, we augment the display with an
+        image of the last tracked position so that the user can return their
+        viewport to the same position and resume their session.
+      </li>
+    </ul>
+    <p>
+      Together, these features greatly reduce the number of situations in which
+      user error can potentially corrupt the world map by creating unsatisfiable
+      constraints between anchors and harming user experience.
+    </p>
+    <h3 id="saving--loading-worldmap-data">
+      Saving &amp; Loading Worldmap Data
+    </h3>
+    <img
+      align="left"
+      style="margin: 10px;"
+      src="./image/load_view2.png"
+      width="200"
+    />
+    <p>
+      With the case of AR Memory Palaces we strongly felt that it was necessary
+      to support a save and restore feature so that users could build up a
+      repository of knowledge, save it, and come back to it later. This allows
+      them to either continue adding new information or to spend more time
+      studying / learning the arrangement of facts.
+    </p>
+    <p>
+      To implement saving we had to find a way to associate ARAnchors, which are
+      serialized as part of the world map, with our model's representation of
+      the markers. We used the 'name' property to associate a UUID, which is
+      saved with the anchors, which associates that anchor with its
+      corresponding marker. We can then use ARKit's world serialization API to
+      serialize the worldmap and anchor data and save it to a file. We
+      separately serialize and save the marker metadata as JSON and write out a
+      apture of the camera's view. This is done as a visual reference to help
+      the user return the same location and device orientation.
+    </p>
+    <p>
+      To load the worldmap, these steps are performed in rougly reverse order.
+      We start by deserializing and loading the marker metadata into the model
+      which holds our list of markers and other global state for the
+      application. We then load the serialized world map which puts the device
+      into &quot;relocalization mode.&quot; In this mode, the device attempts to
+      relate the features it extracts from the scene to the features it loads
+      from the model until it is confident it has been restored to the same
+      location. At this point both the information from the file and the new
+      world tracking data are merged and the device places the anchors from the
+      worldmap file into the scene. This invokes SceneKit API's to render the
+      SCNNode representations of these anchors, the data for this is already
+      available thanks to the model being loaded so we simply construct the
+      marker icon as well as well as an associated label and move these into
+      position restoring the experience.
+    </p>
+    <h3 id="future-work">Future Work</h3>
+    <ul>
+      <li>
+        <p>
+          World Tracking: we would be interested to explore how the app performs
+          on more modern Apple devices that we did not have access to such as an
+          the iPad Pro with Apple's new lidarr scanner.
+        </p>
+      </li>
+      <li>
+        <p>
+          Save &amp; Restore: in our testing we have found save and restore to
+          be a remarkably useful and robust. Save and restore is in most cases
+          able to almost immediately resume tracking when returned to the
+          device's original location and in some cases it can even restore from
+          other locations in the mapped space. Loading and restoring memory
+          markers can be used to map out multiple rooms in a much larger
+          structure allowing for the creation of truly expansive memory palaces.
+          In future work we might be able to incorporate features such as GPS
+          tracking to automatically restore markers when a user returns to a
+          given area, or support for image markers to automatically restore tags
+          in a room when a user returns to it.
+        </p>
+      </li>
+      <li>
+        <p>
+          Importing hints &amp; facts list in advance: Users may want to import
+          pre-created lists from external sources such as from Google Sheets or
+          Quizlet, thus this feature may be useful in future iterations
+        </p>
+      </li>
+      <li>
+        <p>
+          Multiple languages: Supporting multiple languages and broadening our
+          app to the world, instead of just English-speaking countries
+        </p>
+      </li>
+    </ul>
+    <h3 id="takeaways">Takeaways</h3>
+    <ul>
+      <li>
+        <p>
+          We found working with ARKit using SceneKit's abstractions were perfect
+          for our project. SceneKit does little to hide the low level internals
+          of ARKit which makes implementing features like serializing world data
+          to save it, and sychronizing UI elements with anchors in the scene
+          relatively easy. SceneKit also provides a great set of rendering
+          abstractions through the SCNNode hierarchy.
+        </p>
+      </li>
+      <li>
+        <p>
+          We found that intelligent UI design can go along way towards
+          addressing user frustration when worldtracking struggles. By
+          implementing hints to the user when an area is poorly mapped or more
+          device movement is needed it becomes a lot more intuitive for the user
+          to explore the space and accurately place markers that ARKit can do a
+          good job of tracking.
+        </p>
+      </li>
+      <li>
+        <p>AR can help users form strong spatial associations by overlaying</p>
+      </li>
+    </ul>
+    <h1 id="sources">Sources</h1>
+    <ul>
+      <li>
+        <a
+          href="https://developer.apple.com/documentation/arkit/creating_screen_annotations_for_objects_in_an_ar_experience"
+          >https://developer.apple.com/documentation/arkit/creating_screen_annotations_for_objects_in_an_ar_experience</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://developer.apple.com/documentation/arkit/world_tracking/saving_and_loading_world_data"
+          >https://developer.apple.com/documentation/arkit/world_tracking/saving_and_loading_world_data</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://www.researchgate.net/publication/309223649_NeverMind_Using_Augmented_Reality_for_Memorization"
+          >https://www.researchgate.net/publication/309223649_NeverMind_Using_Augmented_Reality_for_Memorization</a
+        >
+      </li>
+    </ul>
+  </body>
+</html>
