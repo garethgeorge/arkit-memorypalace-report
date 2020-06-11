@@ -35,9 +35,15 @@ ARKit provides several different views that we leverage in our app. We provide t
 
 - **marker list view:** contains some of the marker metadata (the hint and the fact). Additionally, this view allows users to easily edit and delete all the markers that they have created.
 
+
 - **spatial marker view:** makes it easy to visualize the memory palace in the surrounding home/place. Here, users are able to add markers onto furniture/objects. This is done by detecting screen presses and casting a ray into the scene. This ray is checked for intersections with estimated surfaces in the pointcloud of features that have been detected in the scene.
 
 In the spatial marker view, when an object is tapped, users are prompted with the marker creation/editing view. Users can define hints and facts, and have the option to choose different colors for their repsective markers. Users can also use emojis as hints or embed these emojis within their facts. We found the use of emojis more helpful by just properly supporting Unicode, instead of bloating our app with AR models, especially since there are tons of emojis that already exist. Additionally, instead of having to use the marker list view, users also have the ability to tap an existing marker and update or delete the marker from the spatial marker view.
+
+<br/>
+<img src="./image/marker_edit.png" width="200" />
+<img src="./image/marker-list.png" width="200" />
+
 
 Furthermore, we wanted to provide a progression of difficulty levels so that users can ease into the process of learning / memorizing concepts. We use the UISegmentedControl, provided by SceneKit to create three different study view modes:
 
@@ -45,7 +51,13 @@ Furthermore, we wanted to provide a progression of difficulty levels so that use
 - **Quiz view mode:** this is intended as an intermediate step in the learning process, providing the locations of the markers, hints, and the sequence numbers
 - **Test view mode:** intended for full recall testing. The user is only shown only the locations of the markers and the sequence order. This acts more like the memory palace we know today.
 
+<br/>
+<img src="./image/quiz_view.png" width="200" />
+<img src="./image/test_view.png" width="200" />
+
 ### World Tracking Challenges & Solutions
+
+<img align="right" style="margin: 10px" src="./image/limit-track.png" width="200" />
 
 ARKit provides us with out of the box high quality world tracking. Part of this involves the placement of ARAnchor nodes near positions of interest in the augmented reality (AR) scene. When the user's device is near an ARAnchor ARKit prioritizes the accuratcy of world tracking near that anchor, possibly at the expense of shifting objects elsewhere in the scene. This can create a problem, however, when anchors are placed down while the world is poorly mapped. As ARKit's understanding of the world changes, it will update the positions of these anchors and this can create distortion as ARKit tries to resolve the constraints of anchors near one another.
 
@@ -57,6 +69,8 @@ To mitigate this effect, it is important to communicate the state of the app's w
 Together, these features greatly reduce the number of situations in which user error can potentially corrupt the world map by creating unsatisfiable constraints between anchors and harming user experience.
 
 ### Saving & Loading Worldmap Data
+
+<img align="left" style="margin: 10px" src="./image/load_view2.png" width="200" />
 
 With the case of AR Memory Palaces we strongly felt that it was necessary to support a save and restore feature so that users could build up a repository of knowledge, save it, and come back to it later. This allows them to either continue adding new information or to spend more time studying / learning the arrangement of facts.
 
@@ -81,3 +95,9 @@ To load the worldmap, these steps are performed in rougly reverse order. We star
 - We found that intelligent UI design can go along way towards addressing user frustration when worldtracking struggles. By implementing hints to the user when an area is poorly mapped or more device movement is needed it becomes a lot more intuitive for the user to explore the space and accurately place markers that ARKit can do a good job of tracking.
 
 - AR can help users form strong spatial associations by overlaying
+
+
+# Sources 
+ - https://developer.apple.com/documentation/arkit/creating_screen_annotations_for_objects_in_an_ar_experience
+ - https://developer.apple.com/documentation/arkit/world_tracking/saving_and_loading_world_data
+ - https://www.researchgate.net/publication/309223649_NeverMind_Using_Augmented_Reality_for_Memorization
