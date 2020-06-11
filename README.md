@@ -13,7 +13,7 @@ Memory palaces are a memorization strategy which enhances the recall of informat
 
 Additionally, studies such as 'Virtual Memory Palaces: Immersion Aids Recall' (by Krokos et. al) have established when virtual (VR) memory palaces are used in training they can even enhance the quality of recollection -- by their results training with head mounted displays improved recollection by ~9%.
 
-We attempt to extend these principles into augmented reality using an AR app to help users attach material to memorize to physical objects, study these mappings, and test themselves on the content.
+We attempt to extend these principles into augmented reality using an AR app on mobile devices to help users attach material to memorize to physical objects, study these mappings, and test themselves on the content.
 
 ## Running the project
 
