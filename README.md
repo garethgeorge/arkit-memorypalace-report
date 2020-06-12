@@ -25,10 +25,7 @@ We attempt to extend these principles into augmented reality using an AR app on 
 
 ## Project Demo Video
 
- <video width="420" height="240" controls>
-  <source src="./armemorypalace.mp4" type="video/mp4" />
-  Demo Video Here
-</video>
+[Demo Video Here](./armemorypalace.mp4)
 
 ## Engineering Challenges
 
