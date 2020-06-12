@@ -29,6 +29,7 @@ We attempt to extend these principles into augmented reality using an AR app on 
   <source src="./armemorypalace.mp4" type="video/mp4" />
   Demo Video Here
 </video>
+
 ## Engineering Challenges
 
 ### User Experience & User Interface Implementation and Designs
