@@ -25,8 +25,10 @@ We attempt to extend these principles into augmented reality using an AR app on 
 
 ## Project Demo Video
 
-[Demo Video Here](./armemorypalace.mp4)
-
+ <video width="420" height="240" controls>
+  <source src="./armemorypalace.mp4" type="video/mp4" />
+  Demo Video Here
+</video>
 ## Engineering Challenges
 
 ### User Experience & User Interface Implementation and Designs
@@ -35,15 +37,13 @@ ARKit provides several different views that we leverage in our app. We provide t
 
 - **marker list view:** contains some of the marker metadata (the hint and the fact). Additionally, this view allows users to easily edit and delete all the markers that they have created.
 
-
-- **spatial marker view:** makes it easy to visualize the memory palace in the surrounding home/place. Here, users are able to add markers onto furniture/objects. This is done by detecting screen presses and casting a ray into the scene. This ray is checked for intersections with estimated surfaces in the pointcloud of features that have been detected in the scene.
+* **spatial marker view:** makes it easy to visualize the memory palace in the surrounding home/place. Here, users are able to add markers onto furniture/objects. This is done by detecting screen presses and casting a ray into the scene. This ray is checked for intersections with estimated surfaces in the pointcloud of features that have been detected in the scene.
 
 In the spatial marker view, when an object is tapped, users are prompted with the marker creation/editing view. Users can define hints and facts, and have the option to choose different colors for their repsective markers. Users can also use emojis as hints or embed these emojis within their facts. We found the use of emojis more helpful by just properly supporting Unicode, instead of bloating our app with AR models, especially since there are tons of emojis that already exist. Additionally, instead of having to use the marker list view, users also have the ability to tap an existing marker and update or delete the marker from the spatial marker view.
 
 <br/>
 <img src="./image/marker_edit.png" width="200" />
 <img src="./image/marker-list.png" width="200" />
-
 
 Furthermore, we wanted to provide a progression of difficulty levels so that users can ease into the process of learning / memorizing concepts. We use the UISegmentedControl, provided by SceneKit to create three different study view modes:
 
@@ -96,8 +96,8 @@ To load the worldmap, these steps are performed in rougly reverse order. We star
 
 - AR can help users form strong spatial associations by overlaying
 
+# Sources
 
-# Sources 
- - https://developer.apple.com/documentation/arkit/creating_screen_annotations_for_objects_in_an_ar_experience
- - https://developer.apple.com/documentation/arkit/world_tracking/saving_and_loading_world_data
- - https://www.researchgate.net/publication/309223649_NeverMind_Using_Augmented_Reality_for_Memorization
+- https://developer.apple.com/documentation/arkit/creating_screen_annotations_for_objects_in_an_ar_experience
+- https://developer.apple.com/documentation/arkit/world_tracking/saving_and_loading_world_data
+- https://www.researchgate.net/publication/309223649_NeverMind_Using_Augmented_Reality_for_Memorization
